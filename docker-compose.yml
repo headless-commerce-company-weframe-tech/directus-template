@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: directus_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: directus
+      POSTGRES_USER: directus
+      POSTGRES_PASSWORD: your_db_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  directus:
+    image: directus/directus:11.3.5
+    container_name: directus_app
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      KEY: your_random_secret_key
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: supersecret
+      DB_CLIENT: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: directus
+      DB_USER: directus
+      DB_PASSWORD: your_db_password
+      PUBLIC_URL: http://localhost:8055
+    ports:
+      - "8055:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions
+
+volumes:
+  postgres_data:
+  directus_uploads:
+  directus_extensions:
