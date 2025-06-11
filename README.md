@@ -133,6 +133,5 @@ This applies the schema snapshot to your database.
 
 ## 👨‍💻 Author
 
-- Your Name / Organization
-Sambit @ Weframetech
+- Sambit @ Weframetech
 ---
